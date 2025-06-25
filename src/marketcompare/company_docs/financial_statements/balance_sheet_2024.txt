@@ -1,0 +1,64 @@
+# Innovatech Solutions Ltd. - Balance Sheet
+# As of December 31, 2024
+# (All figures in USD)
+
+## Assets
+
+### Current Assets
+Cash and Cash Equivalents: $1,250,000
+Accounts Receivable, Net: $320,000
+Prepaid Expenses: $85,000
+Other Current Assets: $25,000
+**Total Current Assets: $1,680,000**
+
+### Non-Current Assets
+Property, Plant, and Equipment (PP&E), Net: $180,000
+  (Office Equipment, Computers, Servers)
+Intangible Assets, Net: $350,000
+  (Capitalized Software Development Costs, Patents Pending)
+Right-of-Use Assets: $220,000
+  (Office Lease)
+Other Non-Current Assets: $15,000
+**Total Non-Current Assets: $765,000**
+
+**Total Assets: $2,445,000**
+
+## Liabilities and Equity
+
+### Current Liabilities
+Accounts Payable: $95,000
+Accrued Expenses: $120,000
+  (Salaries, Bonuses, Commissions)
+Deferred Revenue (Short-term): $450,000
+  (Unearned portion of annual subscriptions)
+Current Portion of Lease Liabilities: $55,000
+Other Current Liabilities: $30,000
+**Total Current Liabilities: $750,000**
+
+### Non-Current Liabilities
+Long-term Debt: $150,000
+  (Bank Loan)
+Lease Liabilities (Long-term): $175,000
+Deferred Revenue (Long-term): $50,000
+Other Non-Current Liabilities: $15,000
+**Total Non-Current Liabilities: $390,000**
+
+**Total Liabilities: $1,140,000**
+
+### Equity
+Common Stock (Par Value $0.01; 1,000,000 shares authorized, 500,000 issued and outstanding): $5,000
+Additional Paid-in Capital: $950,000
+Retained Earnings: $350,000
+  (Beginning Retained Earnings + Net Income for FY 2024 - Dividends)
+  ($(-87,250) + $437,250 - $0)
+Accumulated Other Comprehensive Income: $0
+**Total Equity: $1,305,000**
+
+**Total Liabilities and Equity: $2,445,000**
+
+## Notes:
+1. Cash position strengthened by 42% compared to FY 2023 ($880,000)
+2. Accounts Receivable are net of an allowance for doubtful accounts of $15,000
+3. Intangible Assets increased due to capitalization of qualifying development costs for AI features
+4. No dividends were declared or paid during the fiscal year
+5. All figures are unaudited and subject to final review

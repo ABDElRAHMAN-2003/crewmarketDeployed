@@ -1,0 +1,60 @@
+# Innovatech Solutions Ltd. - Cash Flow Statement
+# For the Year Ended December 31, 2024
+# (All figures in USD)
+
+## Cash Flows from Operating Activities
+
+Net Income: $437,250
+
+### Adjustments to Reconcile Net Income to Net Cash Provided by Operating Activities:
+Depreciation and Amortization: $120,000
+Stock-based Compensation: $75,000
+Provision for Doubtful Accounts: $10,000
+
+### Changes in Operating Assets and Liabilities:
+(Increase) in Accounts Receivable: ($85,000)
+(Increase) in Prepaid Expenses: ($25,000)
+Increase in Accounts Payable: $15,000
+Increase in Accrued Expenses: $35,000
+Increase in Deferred Revenue: $150,000
+
+**Net Cash Provided by Operating Activities: $732,250**
+
+## Cash Flows from Investing Activities
+
+Purchase of Property and Equipment: ($75,000)
+Capitalized Software Development Costs: ($180,000)
+Purchase of Intangible Assets: ($25,000)
+
+**Net Cash Used in Investing Activities: ($280,000)**
+
+## Cash Flows from Financing Activities
+
+Proceeds from Long-term Debt: $0
+Repayment of Long-term Debt: ($50,000)
+Payment of Lease Liabilities: ($52,000)
+Proceeds from Issuance of Common Stock: $20,000
+Dividends Paid: $0
+
+**Net Cash Used in Financing Activities: ($82,000)**
+
+## Net Increase in Cash and Cash Equivalents: $370,250
+
+## Cash and Cash Equivalents:
+Beginning of Year (January 1, 2024): $879,750
+End of Year (December 31, 2024): $1,250,000
+
+## Supplemental Disclosures of Cash Flow Information:
+Cash Paid for Interest: $8,000
+Cash Paid for Income Taxes: $135,000
+
+## Supplemental Disclosures of Non-Cash Investing and Financing Activities:
+Right-of-Use Assets Obtained in Exchange for Lease Liabilities: $0
+Equipment Acquired Under Finance Leases: $0
+
+## Notes:
+1. Strong operating cash flow driven by increased net income and growth in deferred revenue
+2. Significant investment in software development to enhance AI capabilities
+3. Modest debt repayment as we prioritize growth investments
+4. No dividends were declared or paid as we reinvest in the business
+5. All figures are unaudited and subject to final review

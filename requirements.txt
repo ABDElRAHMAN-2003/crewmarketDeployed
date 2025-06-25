@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+crewai[tools]>=0.119.0,<1.0.0
+pymongo>=4.13.1 

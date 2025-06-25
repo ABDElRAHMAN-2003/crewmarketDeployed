@@ -1,0 +1,51 @@
+# User Preferences for Market Comparison Analysis
+
+## Target Company Information:
+Target Company Name: Innovatech Solutions Ltd.
+Primary Industry/Sector: Software Development (B2B SaaS)
+Specific Products/Services: ProjectFlow, DataSift
+Company Size: SME (45 employees)
+Year Founded: 2019
+Headquarters: Boston, USA
+
+## Geographical Focus:
+Primary Regions: North America, Western Europe
+Specific Countries: USA, Canada, UK, Germany, France
+Future Expansion Interest: APAC region (Japan, Australia, Singapore)
+
+## Competitor Landscape:
+Key Direct Competitors: TaskMaster Pro, CollabSuite, Insightify Analytics
+Indirect/Emerging Competitors: AgileSprint.io, DataWeave
+Specific Competitor Focus: TaskMaster Pro (primary concern due to new pricing tier)
+
+## Competitive Positioning Metrics:
+Key Metrics: Price, Feature Set, UI/UX, Customer Support, Integration Capabilities, AI/ML Capabilities, Mobile Experience, Market Share
+Priority Metrics: AI/ML Capabilities, UI/UX, Integration Capabilities
+
+## Market Analysis Priorities:
+Market Trends: AI integration in SaaS, mobile-first solutions, integrated analytics
+Growth Segments: Mid-market enterprises (100-500 employees)
+Emerging Opportunities: Predictive analytics, workflow automation, collaborative workspaces
+
+## SWOT Analysis Focus:
+Strengths to Highlight: Product integration, AI capabilities, user experience
+Weaknesses to Address: Mobile experience, enterprise security features, onboarding complexity
+Opportunities to Explore: APAC expansion, AI-driven features, cross-product integration
+Threats to Monitor: TaskMaster Pro's aggressive pricing, new market entrants, economic uncertainty
+
+## Pricing Strategy Interests:
+Current Pricing Model: Tiered subscription (Basic, Professional, Enterprise)
+Competitor Price Sensitivity: High concern about TaskMaster Pro's new entry-level tier
+Discount Strategy Evaluation: Volume discounts, competitive displacement offers
+
+## Report Format Preferences:
+Format: JSON with source attribution
+Visualization Recommendations: Include suggestions for effective data visualization
+Source Requirements: All data points must include source attribution
+Missing Data Handling: Clearly mark as "DATA_NOT_FOUND" rather than making assumptions
+
+## Additional Analysis Requests:
+- Evaluate effectiveness of bundle discount for customers using both products
+- Assess potential impact of APAC expansion in 2026
+- Identify key differentiators that should be emphasized in marketing
+- Evaluate competitive response options to TaskMaster Pro's new pricing tier

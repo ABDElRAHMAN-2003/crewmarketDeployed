@@ -1,0 +1,229 @@
+# Innovatech Solutions Ltd. - Internal Pricing Document
+# Effective: May 1, 2025 - October 31, 2025
+
+## CONFIDENTIAL - INTERNAL USE ONLY
+This document contains confidential pricing information for internal use only. Do not share with customers without approval from Sales Leadership.
+
+## ProjectFlow Pricing Structure
+
+### Standard Tiers
+
+| Tier | Monthly Price (per user) | Annual Price (per user) | Annual Discount |
+|------|--------------------------|-------------------------|-----------------|
+| Basic | $25 | $240 | 20% |
+| Professional | $45 | $432 | 20% |
+| Enterprise | $65 | $624 | 20% |
+
+### Volume Discounts (Applied to Annual Subscriptions)
+
+| Number of Users | Additional Discount |
+|-----------------|---------------------|
+| 10-24 | 5% |
+| 25-49 | 10% |
+| 50-99 | 15% |
+| 100-249 | 20% |
+| 250+ | Custom pricing - Contact Sales Leadership |
+
+### Feature Comparison by Tier
+
+#### Basic Tier
+- Core project management features
+- Up to 5 projects
+- Basic reporting
+- Email support
+- 5GB storage per user
+- Mobile app access (basic features)
+
+#### Professional Tier
+- All Basic features
+- Unlimited projects
+- Advanced reporting and analytics
+- Priority email and chat support
+- 15GB storage per user
+- Full mobile app access
+- Basic AI task suggestions
+- API access
+- Custom fields
+- Time tracking
+
+#### Enterprise Tier
+- All Professional features
+- Advanced security features (SSO, RBAC)
+- Dedicated account manager
+- 24/7 priority support
+- 50GB storage per user
+- Advanced AI capabilities
+- Custom workflows
+- Audit logs
+- SLA guarantees
+- Advanced integrations
+- Training and onboarding
+
+## DataSift Pricing Structure
+
+### Standard Tiers
+
+| Tier | Monthly Price (per user) | Annual Price (per user) | Annual Discount |
+|------|--------------------------|-------------------------|-----------------|
+| Starter | $35 | $336 | 20% |
+| Professional | $65 | $624 | 20% |
+| Enterprise | $95 | $912 | 20% |
+
+### Volume Discounts (Applied to Annual Subscriptions)
+
+| Number of Users | Additional Discount |
+|-----------------|---------------------|
+| 10-24 | 5% |
+| 25-49 | 10% |
+| 50-99 | 15% |
+| 100+ | Custom pricing - Contact Sales Leadership |
+
+### Feature Comparison by Tier
+
+#### Starter Tier
+- Basic data visualization
+- Up to 5 dashboards
+- 5 data sources
+- Daily data refresh
+- Email support
+- 10GB data storage
+
+#### Professional Tier
+- All Starter features
+- Unlimited dashboards
+- 20 data sources
+- Hourly data refresh
+- Priority email and chat support
+- 50GB data storage
+- Basic predictive analytics
+- Custom visualizations
+- API access
+- Data export capabilities
+
+#### Enterprise Tier
+- All Professional features
+- Unlimited data sources
+- Real-time data refresh
+- 24/7 priority support
+- 200GB data storage
+- Advanced predictive analytics
+- AI-driven insights
+- Data governance features
+- Custom connectors
+- Training and onboarding
+- Dedicated account manager
+
+## Bundle Discounts
+
+Customers purchasing both ProjectFlow and DataSift receive an additional 10% discount on the total subscription value.
+
+## Professional Services Pricing
+
+| Service | Price |
+|---------|-------|
+| Implementation - Basic | $2,500 |
+| Implementation - Standard | $5,000 |
+| Implementation - Enterprise | $10,000+ (custom scope) |
+| Custom Development | $200/hour |
+| Training (remote) | $1,000/session (up to 10 users) |
+| Training (on-site) | $3,000/day + travel expenses |
+| Custom Integration Development | Custom quote based on requirements |
+
+## Competitive Response Pricing
+
+### TaskMaster Pro Response
+For deals directly competing with TaskMaster Pro's new $19/user/month tier, Sales Representatives may offer the following:
+- First 3 months at $19/user/month for Basic tier (matching competitor)
+- Then standard pricing applies
+- Requires minimum 10-user commitment and annual contract
+- Approval required from Regional Sales Manager
+
+### CollabSuite Response
+For deals directly competing with CollabSuite:
+- Match their published pricing for equivalent tier
+- Emphasize our superior AI capabilities and roadmap
+- Offer free implementation (up to $2,500 value)
+- Approval required from Regional Sales Manager
+
+### Insightify Analytics Response
+For DataSift deals competing with Insightify Analytics:
+- Match their 25% annual subscription discount if necessary
+- Offer 3 months of Professional Services support at no additional cost
+- Emphasize integration with ProjectFlow as key differentiator
+- Approval required from VP of Sales
+
+## Payment Terms
+
+- Monthly subscriptions: Billed monthly in advance
+- Annual subscriptions: Billed annually in advance
+- Net 30 payment terms standard
+- Custom payment terms require Finance approval
+
+## Renewal Strategy
+
+- Target 5-10% price increase at renewal for customers below current list price
+- Grandfathering available for strategic accounts only (VP approval required)
+- Early renewal incentives: Additional 5% discount for renewing 3+ months early with upgrade or term extension
+
+## Approval Matrix
+
+| Deal Component | Sales Rep | Sales Manager | VP Sales | CFO |
+|----------------|-----------|---------------|----------|-----|
+| Standard pricing | Approve | - | - | - |
+| Volume discounts (standard) | Approve | - | - | - |
+| Additional discount up to 10% | Request | Approve | - | - |
+| Additional discount 11-20% | Request | Request | Approve | - |
+| Additional discount >20% | Request | Request | Request | Approve |
+| Custom payment terms | Request | Request | Approve | - |
+| Non-standard SLAs | Request | Request | Approve | - |
+
+## Pricing Strategy Notes
+
+1. Our pricing strategy positions us as a premium solution with superior AI capabilities and integration between project management and analytics.
+
+2. We are not competing on price with low-cost alternatives but rather on value, innovation, and customer experience.
+
+3. The new TaskMaster Pro entry-level tier requires careful positioning - we should emphasize our AI roadmap and superior user experience rather than matching their pricing broadly.
+
+4. For Q3 2025, we are evaluating a potential 5-8% price increase for new customers to reflect our enhanced AI capabilities.
+
+5. Customer Success should focus on driving adoption of premium features to support upsell opportunities and improve retention.
+
+## Commission Structure
+
+| Component | Commission Rate |
+|-----------|-----------------|
+| New business - Standard | 10% of first-year contract value |
+| New business - Strategic accounts | 12% of first-year contract value |
+| Upsell/Cross-sell | 8% of incremental ACV |
+| Renewal | 2% of renewal ACV |
+
+Accelerators apply when quarterly targets are exceeded:
+- 100-110% of quota: 1.2x multiplier
+- 111-125% of quota: 1.5x multiplier
+- >125% of quota: 2.0x multiplier
+
+## Q2-Q3 2025 Promotions
+
+1. **AI Early Adopter Program**
+   - 15% discount on Professional/Enterprise tiers
+   - Requires participation in feedback sessions
+   - Available until August 31, 2025
+
+2. **Cross-Sell Promotion**
+   - Existing ProjectFlow customers can add DataSift at 25% discount for first year
+   - Available until July 31, 2025
+
+3. **Competitive Displacement**
+   - 20% first-year discount for customers switching from direct competitors
+   - Free migration services (up to $5,000 value)
+   - Available until September 30, 2025
+
+## Document Revision History
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 1.0 | April 15, 2025 | Maria Garcia, CFO | Initial document |
+| 1.1 | April 28, 2025 | Rebecca Taylor, VP Sales | Added competitive response section |
+
+Last Updated: April 28, 2025

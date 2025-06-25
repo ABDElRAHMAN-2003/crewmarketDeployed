@@ -1,0 +1,515 @@
+init_task:
+  description: >
+    Initialize the market comparison analysis and delegate tasks 
+    Your task is to initialize the market comparison analysis process using the provided file content. Follow these steps:
+
+        1. Review the user preferences information provided directly in the {user_preference} variable to understand:
+           - The target company to analyze
+           - Specific competitors to focus on
+           - Regions of interest
+           - Key metrics for competitive positioning
+           - Any other user preferences or priorities
+
+        2. Create a structured configuration object with this information to guide the analysis.
+
+        3. Delegate specific research tasks to the specialized agents:
+           - Assign internal document analysis to the Internal Data Agent
+           - Assign market trend and opportunity/threat research to the Market Research Agent
+           - Assign competitor analysis to the Competitor Agent
+
+        4. Provide clear instructions to each agent about what information they need to gather and how to structure their findings.
+
+        5. Ensure all agents understand they must track and attribute sources for all information they collect.
+
+        Note: All necessary information is provided directly in the {user_preference} variable - no file system access or tools are needed to read this data.
+        
+        Your output must follow the InitTaskOutput model structure with these fields:
+        - target_company: The target company to analyze
+        - competitors: List of specific competitors to focus on
+        - regions: Regions of interest for the analysis
+        - key_metrics: Key metrics for competitive positioning
+        - priorities: User priorities or preferences (optional)
+        - task_assignments: Dictionary of tasks assigned to each specialized agent
+  
+  expected_output: "A comprehensive configuration document that identifies the target company, key competitors, regions of interest, and metrics for analysis. The output should include clear task assignments for each specialized agent with detailed instructions on what information to gather and how to structure findings, all following the InitTaskOutput model structure."
+  agent: manager
+  async_execution: false
+
+internal_data_task:
+  description: >
+    Extract relevant information from the target company's internal documents
+    Your task is to analyze the target company's internal documents to extract valuable insights. Follow these steps:
+
+       1. Review the following company documents provided directly to you as variables (no file system access needed):
+          - Annual Report: {annual_report_2024}
+          - Balance Sheet: {balance_sheet_2024}
+          - Cash Flow Statement: {cash_flow_statement_2024}
+          - Income Statement: {income_statement_2024}
+          - Marketing Report: {marketing_report_q1_2025}
+          - Operational Report: {operational_report_q1_2025}
+          - Sales Report: {sales_report_q1_2025}
+          - Internal Pricing Document: {internal_pricing_document}
+          - Product Roadmap: {product_roadmap_h2_2025}
+          - Customer Feedback Summary: {customer_feedback_summary_q1_2025}
+
+       2. Systematically review the content of these documents to extract information about:
+          - Company strengths (capabilities, assets, competitive advantages)
+          - Company weaknesses (limitations, challenges, areas for improvement)
+          - Current product/service details (features, specifications, unique selling points)
+          - Pricing information for the company's products/services
+          - Internal strategies and initiatives
+          - Any other relevant internal information for market comparison
+
+       3. For each piece of information you extract, record the source document name and relevant section.
+
+       4. Organize your findings into a structured format with clear source attribution for each data point.
+
+       5. If you cannot find specific information after thorough document review, mark it as "DATA_NOT_FOUND" and note which documents you checked.
+
+       Note: All document content is provided directly in the variables listed above - no file system access or tools are needed to read this data.
+       
+       Your output must follow the InternalDataOutput model structure with these fields:
+       - company_strengths: List of company strengths with source attribution
+       - company_weaknesses: List of company weaknesses with source attribution
+       - product_details: List of current product/service details with source attribution
+       - pricing_information: List of pricing information with source attribution
+       - internal_strategies: List of internal strategies and initiatives with source attribution
+       - additional_information: Any other relevant internal information (optional)
+       
+       Each item in these lists must include:
+       - content: The actual information or data point
+       - source: Source attribution in the format "Document Name - Section/Page"
+
+  expected_output: "A detailed analysis of the company's internal documents organized into clear categories including strengths, weaknesses, product details, pricing information, and internal strategies. Each data point should include proper source attribution referencing the specific document and section where the information was found, all structured according to the InternalDataOutput model."
+  agent: internal_data_agent
+  async_execution: false
+
+
+market_research_task:
+  description: >
+    Gather external information about market trends, opportunities, threats, and market share data
+    Your task is to research external market information to provide context for the market comparison. Follow these steps:
+
+        1. Review the user preferences in the {user_preference} variable and relevant company information in the {annual_report_2024} and {marketing_report_q1_2025} variables to understand the industry context.
+
+        2. Use web search tools to find information about:
+           - Current market trends in the industry
+           - Market growth rates and projections
+           - Emerging opportunities in the market
+           - Potential threats (regulatory changes, technological disruptions, etc.)
+           - Market share data for the target company and competitors
+
+        3. For each market trend you identify, capture:
+           - The trend name/description
+           - Growth rate (if available)
+           - Potential impact (high, medium, low)
+           - Source URL and publication/section
+
+        4. For market share data, capture:
+           - Company name
+           - Market share percentage
+           - Source URL and publication/section
+
+        5. For opportunities and threats, provide detailed descriptions with source attribution.
+
+        6. If specific information cannot be found after reasonable attempts, mark it as "DATA_NOT_FOUND" and note the sources you attempted to check.
+
+        Note: The company information is provided directly in the variables listed above - no file system access or tools are needed to read this data.
+        
+        Your output must follow the MarketResearchOutput model structure with these fields:
+        - market_trends: List of current market trends in the industry
+        - market_growth: List of market growth rates and projections with source attribution
+        - opportunities: List of emerging opportunities in the market with source attribution
+        - threats: List of potential threats to the market with source attribution
+        - market_share_data: Dictionary of market share data for companies with source attribution
+        
+        Each market trend must include:
+        - name: The trend name/description
+        - growth_rate: Growth rate if available (optional)
+        - impact: Potential impact (high, medium, low)
+        - source: Source URL and publication/section
+        
+        Each item in market_growth, opportunities, and threats must include:
+        - content: The actual information or data point
+        - source: Source attribution in the format "Publication Name - Section"
+
+  expected_output: "A comprehensive market research report containing current industry trends with growth rates and impact assessments, market growth projections, emerging opportunities, potential threats, and market share data for the target company and its competitors. All information should include proper source attribution with URLs and publication details, structured according to the MarketResearchOutput model."
+  agent: market_research_agent
+  async_execution: false
+
+competitor_analysis_task:
+  description: >
+    Collect detailed information about specified competitors, including pricing, products, and strategies
+    Your task is to gather detailed information about the specified competitors for comparison analysis. Follow these steps:
+
+        1. Review the following information provided directly as variables (no file system access needed):
+           - User preferences: {user_preference}
+           - Marketing information: {marketing_report_q1_2025}
+           - Pricing details: {internal_pricing_document}
+           - Customer feedback: {customer_feedback_summary_q1_2025}
+
+        2. For each competitor identified in the user preferences:
+           a. Use web search tools to find their official website, pricing pages, product information, and reviews.
+           b. Extract specific details from these pages.
+
+        3. For each competitor, collect:
+           - Product/service pricing information
+           - Discount strategies and promotional offers
+           - Product features and specifications
+           - Customer satisfaction metrics (from review sites, ratings)
+           - Innovation indicators (new product launches, patents, R&D)
+           - Any other information relevant to competitive positioning
+
+        4. For each piece of information, record the source URL and specific section/page.
+
+        5. Organize the findings by competitor, with structured data for pricing, discount strategies, and metrics for competitive positioning.
+
+        6. If specific information cannot be found for a competitor after reasonable attempts, mark it as "DATA_NOT_FOUND" and note the sources you attempted to check.
+
+        Note: All company information is provided directly in the variables listed above - no file system access or tools are needed to read this data.
+        
+        IMPORTANT: Your output must follow the CompetitorAnalysisOutput model structure with a DICTIONARY format:
+        
+        competitors: {
+          "CompetitorName1": {
+            "pricing": [
+              {
+                "content": "Pricing information",
+                "source": "Website/Publication - Section/Page"
+              }
+            ],
+            "discount_strategies": [
+              {
+                "content": "Discount strategy information", 
+                "source": "Website/Publication - Section/Page"
+              }
+            ],
+            "product_features": [
+              {
+                "content": "Product feature information",
+                "source": "Website/Publication - Section/Page"
+              }
+            ],
+            "customer_satisfaction": [
+              {
+                "content": "Customer satisfaction metric",
+                "source": "Website/Publication - Section/Page"
+              }
+            ],
+            "innovation_indicators": [
+              {
+                "content": "Innovation indicator",
+                "source": "Website/Publication - Section/Page"
+              }
+            ],
+            "additional_information": [
+              {
+                "content": "Additional relevant information",
+                "source": "Website/Publication - Section/Page"
+              }
+            ]
+          },
+          "CompetitorName2": {
+            // Same structure as above
+          }
+        }
+        
+        DO NOT use a list format. Use a dictionary where each key is the competitor name and the value is the competitor details object.
+
+  expected_output: "A detailed competitor analysis report organized as a dictionary by competitor name, containing comprehensive information about each competitor's pricing strategies, discount offers, product features, customer satisfaction metrics, and innovation indicators. Each piece of information should include proper source attribution with website URLs and specific sections referenced. The structure must be a dictionary with competitor names as keys, not a list, following the CompetitorAnalysisOutput model exactly."
+  agent: competitor_agent
+  async_execution: false
+
+
+data_synthesis_task:
+  description: >
+    Synthesize gathered data into core analytical sections of the market comparison report
+    Your task is to synthesize all the research data into cohesive analytical sections for the market comparison report. Follow these steps:
+
+       1. Review the user preferences provided in the {user_preference} variable and all the structured data provided by:
+          - Internal Data Agent (company strengths, weaknesses, etc.)
+          - Market Research Agent (market trends, opportunities, threats, market share)
+          - Competitor Agent (competitor pricing, strategies, positioning)
+
+       2. Synthesize this information to create the following analytical sections:
+
+          a. SWOT Analysis:
+             - Combine internal strengths and weaknesses with external opportunities and threats
+             - Ensure each point has proper source attribution
+
+          b. Pricing Comparison:
+             - Create a structured comparison of the target company's pricing against competitors
+             - Compile common discount strategies in the market
+             - Maintain source attribution for all data points
+
+          c. Competitive Positioning:
+             - Use the metrics specified in the configuration
+             - Assign scores for each competitor based on the gathered data
+             - Ensure source attribution for scores
+             - Add a visualization recommendation
+
+          d. Market Analysis:
+             - Organize market trends with growth rates and impact assessments
+             - Compile market share data in a structured format
+             - Maintain source attribution for all data points
+
+       3. For any sections where data is incomplete, clearly indicate what information is missing rather than making assumptions.
+
+       4. Ensure all source attributions are preserved in the format that can be converted to "(Source: Source Name - Excerpt)" in the final report.
+
+       Note: The user preferences are provided directly in the {user_preference} variable - no file system access or tools are needed to read this data.
+       
+       Your output must follow the DataSynthesisOutput model structure with these fields:
+       - swot_analysis: SWOT analysis section
+       - pricing_comparison: Pricing comparison section
+       - competitive_positioning: Competitive positioning section
+       - market_analysis: Market analysis section
+       
+       Each section must maintain proper structure and source attribution as defined in the model.
+
+  expected_output: "A synthesized analytical report containing four key sections - a comprehensive SWOT analysis combining internal and external factors, a detailed pricing comparison between the target company and competitors, a competitive positioning analysis with metrics-based scoring, and a market analysis with organized trends and market share data. All sections should maintain proper source attribution throughout and follow the structure defined in the DataSynthesisOutput model."
+  agent: data_synthesizer
+  async_execution: false
+  context: [internal_data_task, market_research_task, competitor_analysis_task]
+
+recommendation_task:
+  description: >
+    Generate actionable recommendations based on the synthesized market analysis
+    Your task is to generate actionable recommendations based on the synthesized market analysis. Follow these steps:
+
+        1. Review the following financial and product data provided directly as variables (no file system access needed):
+           - Balance Sheet: {balance_sheet_2024}
+           - Cash Flow Statement: {cash_flow_statement_2024}
+           - Income Statement: {income_statement_2024}
+           - Product Roadmap: {product_roadmap_h2_2025}
+
+        2. Also review the complete synthesized analysis provided by the Data Synthesis Agent, including:
+           - SWOT Analysis
+           - Pricing Comparison
+           - Competitive Positioning
+           - Market Analysis
+
+        3. Based on this analysis, formulate:
+
+           a. Immediate Actions:
+              - Short-term, tactical moves the company should make
+              - Link each action to specific findings in the analysis
+              - Include source attribution that references the relevant analysis section
+
+           b. Strategic Initiatives:
+              - Longer-term, strategic moves for sustainable advantage
+              - Link each initiative to specific findings in the analysis
+              - Include source attribution that references the relevant analysis section
+
+           c. Urgent Alerts:
+              - Critical issues requiring immediate attention
+              - Link each alert to specific findings in the analysis
+              - Include source attribution that references the relevant analysis section
+
+        4. Ensure recommendations are specific, actionable, and directly tied to the analysis.
+
+        5. For each recommendation, include a reference to which part of the analysis led to this recommendation (e.g., "Based on the identified market trend of increasing demand for eco-friendly products").
+
+        Note: All financial and product data is provided directly in the variables listed above - no file system access or tools are needed to read this data.
+        
+        Your output must follow the RecommendationOutput model structure with these fields:
+        - immediate_actions: List of short-term, tactical moves the company should make
+        - strategic_initiatives: List of longer-term, strategic moves for sustainable advantage
+        - urgent_alerts: List of critical issues requiring immediate attention
+        
+        Each item in these lists must include:
+        - content: The actual recommendation
+        - source: Source attribution referencing the relevant analysis section
+
+  expected_output: "A strategic recommendations report containing three distinct categories - immediate tactical actions the company should take in the short term, longer-term strategic initiatives for sustainable competitive advantage, and urgent alerts highlighting critical issues requiring immediate attention. Each recommendation should be specific, actionable, and directly linked to findings from the analysis with clear source attribution, all structured according to the RecommendationOutput model."
+  agent: recommendation_agent
+  async_execution: false
+  context: [data_synthesis_task]
+
+final_report_task:
+  description: > 
+    Create a clean, simple market comparison report in JSON format
+    Your task is to create a simple, clean market comparison report based on the analysis data. Follow these steps:
+
+       1. Review the synthesized analytical sections from the Data Synthesis Agent:
+          - SWOT Analysis
+          - Pricing Comparison
+          - Competitive Positioning
+          - Market Analysis
+
+       2. Review the recommendations from the Recommendation Agent:
+          - Immediate Actions
+          - Strategic Initiatives
+          - Urgent Alerts
+          
+       3. Create a clean JSON object with this EXACT structure:
+          {
+            "_id": {
+              "$oid": "generated_24_character_hex_string"
+            },
+            "swot_analysis": {
+              "strengths": [
+                "Strong brand reputation",
+                "Diverse product range"
+              ],
+              "weaknesses": [
+                "Weak online presence",
+                "Dependence on third-party suppliers"
+              ],
+              "opportunities": [
+                "Expansion into emerging markets",
+                "Increasing demand for eco-friendly products"
+              ],
+              "threats": [
+                "Intense competition",
+                "Changing regulatory environment"
+              ]
+            },
+            "pricing_comparison": {
+              "competitor_pricing": [
+                {
+                  "competitor": "Company A",
+                  "product_line": "Project Management Software",
+                  "price_range": "$200-$500"
+                },
+                {
+                  "competitor": "Company B",
+                  "product_line": "Project Management Software",
+                  "price_range": "$180-$450"
+                }
+              ],
+              "our_pricing": [
+                {
+                  "product_line": "Project Management Software",
+                  "price_range": "$220-$480"
+                }
+              ]
+            },
+            "competitive_positioning": {
+              "market_share": "12%",
+              "key_differentiators": [
+                "Innovative product features",
+                "Excellent customer service"
+              ],
+              "customer_segments": [
+                "Eco-conscious consumers",
+                "Tech-savvy millennials"
+              ]
+            },
+            "market_analysis": {
+              "industry_trends": [
+                "Rising interest in sustainable products",
+                "Growth in smart home technology"
+              ],
+              "consumer_behaviors": [
+                "Increased online shopping",
+                "Preference for high-quality goods"
+              ],
+              "market_growth": "5% annual increase in demand for project management software"
+            },
+            "recommendations": {
+              "strategic_moves": [
+                "Increase digital marketing efforts",
+                "Form strategic partnerships with eco-friendly brands"
+              ],
+              "product_development": [
+                "Invest in smart technology",
+                "Enhance eco-friendly product lines"
+              ]
+            }
+          }
+       
+       4. Extract the key information from the analysis and format it into simple, clean lists without complex source attributions.
+
+       5. Generate a unique 24-character hexadecimal string for the _id.$oid field.
+
+       6. Keep the structure simple and clean - avoid complex nested objects and source citations.
+
+  expected_output: "A clean, simple JSON report that matches the exact structure provided, with straightforward lists and simple data structures. The report should be easy to read and understand, without complex source attributions or nested objects."
+  agent: manager
+  async_execution: false
+  context: [data_synthesis_task, recommendation_task]
+
+markdown_report_task:
+  description: >
+    Create a professional PDF-ready HTML report from the JSON market comparison data
+    Your task is to create a comprehensive, professional HTML report that can be converted to PDF. Follow these steps:
+
+        1. Review the complete JSON market comparison report data provided by the Final Report Task, including:
+           - SWOT Analysis
+           - Pricing Comparison
+           - Competitive Positioning
+           - Market Analysis
+           - Recommendations (Immediate Actions, Strategic Initiatives, and Urgent Alerts)
+
+        2. Also review the user preferences in the {user_preference} variable to understand the specific focus areas and priorities.
+
+        3. Create a professional HTML document with the following structure and styling:
+
+           a. Document Header:
+              - Professional title page with company logo placeholder
+              - Report title: "Market Comparison Analysis Report"
+              - Target company name
+              - Date of analysis
+              - Executive summary in a highlighted box
+
+           b. Table of Contents:
+              - Clickable navigation links to each section
+              - Page numbers (for PDF conversion)
+
+           c. Executive Summary (1 page):
+              - Key findings in bullet points
+              - Critical recommendations highlighted
+              - Market position summary
+
+           d. Market Analysis Section:
+              - Market trends in a professional table
+              - Market share data with visual chart suggestions
+              - Growth projections with source citations
+
+           e. Competitive Landscape Section:
+              - Competitor comparison table
+              - Pricing analysis with charts
+              - Competitive positioning matrix
+              - SWOT analysis in a 2x2 grid format
+
+           f. Strategic Recommendations Section:
+              - Immediate actions with priority levels
+              - Strategic initiatives with timelines
+              - Urgent alerts in warning boxes
+              - Implementation roadmap
+
+           g. Appendix:
+              - Detailed data tables
+              - Source references
+              - Methodology notes
+
+        4. Apply professional CSS styling:
+           - Use a clean, business-appropriate color scheme (blues, grays, whites)
+           - Professional fonts (Arial, Helvetica, or similar)
+           - Proper spacing and margins for PDF conversion
+           - Tables with alternating row colors
+           - Charts and graphs placeholders with descriptions
+           - Page breaks for PDF sections
+           - Header and footer for each page
+
+        5. Include interactive elements for HTML viewing:
+           - Collapsible sections
+           - Hover effects on tables
+           - Print-friendly CSS media queries
+
+        6. Ensure the report is comprehensive and professional:
+           - Use clear, executive-level language
+           - Include visual elements (charts, graphs, icons)
+           - Maintain consistent formatting throughout
+           - Add page numbers and section headers
+           - Include a professional disclaimer/methodology section
+
+        Note: The JSON report data is provided by the previous task, and user preferences are provided directly in the {user_preference} variable.
+        
+        The output should be a complete HTML document with embedded CSS that can be easily converted to PDF using tools like wkhtmltopdf or similar.
+
+  expected_output: "A professionally formatted HTML document with embedded CSS styling that presents the market comparison analysis in a business-ready format. The document should include a title page, table of contents, executive summary, detailed analysis sections, strategic recommendations, and appendix. The styling should be print-friendly and suitable for PDF conversion, with professional color schemes, proper typography, tables, charts placeholders, and consistent formatting throughout."
+  agent: markdown_report_agent
+  async_execution: false
+  context: [final_report_task]
