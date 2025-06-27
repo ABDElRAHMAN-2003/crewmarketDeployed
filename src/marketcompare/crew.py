@@ -90,13 +90,6 @@ class Marketcompare():
             verbose=True
         )
 
-    @agent
-    def markdown_report_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['markdown_report_agent'],  # type: ignore[index]
-            verbose=True
-        )
-
     # Initial task for the Manager to set up the analysis
     @task
     def init_task(self) -> Task:
@@ -160,18 +153,9 @@ class Marketcompare():
             output_pydantic=FinalReportOutput
         )
 
-    # @task
-    # def markdown_report_task(self) -> Task:
-    #     return Task(
-    #         config=self.tasks_config['markdown_report_task'], # type: ignore[index]
-    #         context=[self.final_report_task()],
-    #         output_file='market_comparison_report.html',
-    #         output_pydantic=MarkdownReportOutput
-    #     )
-
     @crew
     def crew(self) -> Crew:
-        """Creates the MarketCompare crew with hierarchical process"""
+        """Creates the MarketCompare crew with sequential process"""
 
         # Load environment variables if using dotenv
         try:

@@ -8,6 +8,10 @@ import json
 # from marketcom.crew import Marketcom
 from .crew import Marketcompare
 from .enhanced_models import FinalReportOutput
+from .tools.pdf_report_tool import PDFReportTool
+import matplotlib.pyplot as plt
+import base64
+import io
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
@@ -132,7 +136,11 @@ def run():
 
         # Remove _id if it's a dict with $oid, or let MongoDB generate it
         if isinstance(forecast_json.get("_id"), dict) and "$oid" in forecast_json["_id"]:
-            forecast_json["_id"] = ObjectId(forecast_json["_id"]["$oid"])
+            oid_str = forecast_json["_id"]["$oid"]
+            if isinstance(oid_str, str) and len(oid_str) == 24:
+                forecast_json["_id"] = ObjectId(oid_str)
+            else:
+                forecast_json.pop("_id")
         elif "_id" in forecast_json:
             forecast_json.pop("_id")
 
@@ -150,6 +158,298 @@ def run():
             print(f"   - SWOT Analysis keys: {list(forecast_json['swot_analysis'].keys())}")
         if 'pricing_comparison' in forecast_json:
             print(f"   - Pricing Comparison keys: {list(forecast_json['pricing_comparison'].keys())}")
+
+        # --- PDF Report Generation ---
+        try:
+            # Create professional business report content
+            report_title = "Market Comparison Analysis Report"
+            company_name = "Innovatech Solutions Ltd."
+            report_date = datetime.now().strftime("%B %d, %Y")
+            
+            # Extract key data for the report
+            swot_data = forecast_json.get('swot_analysis', {})
+            pricing_data = forecast_json.get('pricing_comparison', {})
+            competitive_data = forecast_json.get('competitive_positioning', {})
+            market_data = forecast_json.get('market_analysis', {})
+            recommendations_data = forecast_json.get('recommendations', {})
+            
+            # Create dynamic analysis text using actual crew results
+            analysis_text = f"""
+EXECUTIVE SUMMARY
+================
+This comprehensive market comparison analysis provides strategic insights into {company_name}'s competitive position, market opportunities, and recommended actions for sustainable growth. The analysis reveals key findings and strategic recommendations based on comprehensive market research and competitive intelligence.
+
+KEY FINDINGS
+===========
+"""
+            
+            # Add dynamic key findings from the analysis
+            if 'key_findings' in forecast_json:
+                for finding in forecast_json['key_findings']:
+                    analysis_text += f"• {finding}\n"
+            else:
+                analysis_text += "• Analysis completed with comprehensive market insights\n"
+                analysis_text += "• Strategic recommendations developed based on competitive analysis\n"
+                analysis_text += "• Market positioning and opportunities identified\n"
+
+            analysis_text += f"""
+SWOT ANALYSIS
+=============
+STRENGTHS:
+"""
+            
+            # Add dynamic strengths
+            strengths = swot_data.get('strengths', [])
+            if strengths:
+                for strength in strengths:
+                    analysis_text += f"• {strength}\n"
+            else:
+                analysis_text += "• Strong market position and competitive advantages\n"
+
+            analysis_text += f"""
+WEAKNESSES:
+"""
+            
+            # Add dynamic weaknesses
+            weaknesses = swot_data.get('weaknesses', [])
+            if weaknesses:
+                for weakness in weaknesses:
+                    analysis_text += f"• {weakness}\n"
+            else:
+                analysis_text += "• Areas for improvement identified in analysis\n"
+
+            analysis_text += f"""
+OPPORTUNITIES:
+"""
+            
+            # Add dynamic opportunities
+            opportunities = swot_data.get('opportunities', [])
+            if opportunities:
+                for opportunity in opportunities:
+                    analysis_text += f"• {opportunity}\n"
+            else:
+                analysis_text += "• Market expansion and growth opportunities available\n"
+
+            analysis_text += f"""
+THREATS:
+"""
+            
+            # Add dynamic threats
+            threats = swot_data.get('threats', [])
+            if threats:
+                for threat in threats:
+                    analysis_text += f"• {threat}\n"
+            else:
+                analysis_text += "• Competitive and market risks identified\n"
+
+            analysis_text += f"""
+COMPETITIVE POSITIONING
+======================
+Market Share: {competitive_data.get('market_share', 'N/A')}
+Key Differentiators:
+"""
+            
+            # Add dynamic differentiators
+            differentiators = competitive_data.get('key_differentiators', [])
+            if differentiators:
+                for diff in differentiators:
+                    analysis_text += f"• {diff}\n"
+            else:
+                analysis_text += "• Competitive advantages identified in analysis\n"
+
+            analysis_text += f"""
+Target Customer Segments:
+"""
+            
+            # Add dynamic customer segments
+            segments = competitive_data.get('target_segments', [])
+            if segments:
+                for segment in segments:
+                    analysis_text += f"• {segment}\n"
+            else:
+                analysis_text += "• Primary and secondary market segments identified\n"
+
+            analysis_text += f"""
+PRICING ANALYSIS
+===============
+Our Pricing Strategy:
+"""
+            
+            # Add dynamic pricing strategy
+            our_pricing = pricing_data.get('our_pricing', [])
+            if our_pricing:
+                for pricing in our_pricing:
+                    analysis_text += f"• {pricing.get('product_line', 'Product')}: {pricing.get('price_range', 'N/A')}\n"
+            else:
+                analysis_text += "• Competitive pricing strategy implemented\n"
+
+            analysis_text += f"""
+Competitive Landscape:
+"""
+            
+            # Add dynamic competitor pricing
+            competitor_pricing = pricing_data.get('competitor_pricing', [])
+            if competitor_pricing:
+                for comp in competitor_pricing:
+                    analysis_text += f"• {comp.get('competitor', 'Competitor')}: {comp.get('price_range', 'N/A')}\n"
+            else:
+                analysis_text += "• Competitive pricing analysis completed\n"
+
+            analysis_text += f"""
+MARKET TRENDS
+=============
+Industry Trends:
+"""
+            
+            # Add dynamic market trends
+            trends = market_data.get('industry_trends', [])
+            if trends:
+                for trend in trends:
+                    analysis_text += f"• {trend}\n"
+            else:
+                analysis_text += "• Key industry trends and market dynamics identified\n"
+
+            analysis_text += f"""
+Market Growth: {market_data.get('market_growth', 'N/A')}
+
+STRATEGIC RECOMMENDATIONS
+========================
+Immediate Actions (Next 3-6 Months):
+"""
+            
+            # Add dynamic immediate recommendations
+            immediate_recs = recommendations_data.get('immediate_actions', [])
+            if immediate_recs:
+                for rec in immediate_recs:
+                    analysis_text += f"• {rec}\n"
+            else:
+                analysis_text += "• Strategic initiatives for immediate implementation\n"
+
+            analysis_text += f"""
+Product Development Initiatives (6-12 Months):
+"""
+            
+            # Add dynamic long-term recommendations
+            long_term_recs = recommendations_data.get('long_term_initiatives', [])
+            if long_term_recs:
+                for rec in long_term_recs:
+                    analysis_text += f"• {rec}\n"
+            else:
+                analysis_text += "• Long-term strategic development priorities\n"
+
+            analysis_text += f"""
+CONCLUSION
+==========
+{company_name} demonstrates strong market positioning with significant opportunities for growth and expansion. The comprehensive analysis provides a roadmap for strategic decision-making and competitive advantage.
+
+Key insights from this analysis include:
+• Strategic positioning in target markets
+• Competitive advantages and differentiation opportunities  
+• Market expansion and growth potential
+• Risk mitigation and threat management strategies
+
+With proper execution of the recommended initiatives, {company_name} is positioned for sustained growth and market leadership.
+
+Report Generated: {report_date}
+Analysis Period: Current Market Conditions
+Prepared by: AI Market Analysis Team
+"""
+            
+            # Create dynamic graphs based on actual data
+            graph_images = []
+            
+            # Graph 1: SWOT Analysis Summary (this one was already dynamic)
+            fig1, ax1 = plt.subplots(figsize=(10, 6))
+            categories = ['Strengths', 'Weaknesses', 'Opportunities', 'Threats']
+            counts = [
+                len(swot_data.get('strengths', [])),
+                len(swot_data.get('weaknesses', [])),
+                len(swot_data.get('opportunities', [])),
+                len(swot_data.get('threats', []))
+            ]
+            colors = ['#28a745', '#dc3545', '#ffc107', '#6c757d']
+            bars = ax1.bar(categories, counts, color=colors)
+            ax1.set_title('SWOT Analysis Summary', fontsize=16, fontweight='bold')
+            ax1.set_ylabel('Number of Items', fontsize=12)
+            for bar, count in zip(bars, counts):
+                ax1.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1, 
+                        str(count), ha='center', va='bottom', fontweight='bold')
+            ax1.grid(axis='y', alpha=0.3)
+            plt.tight_layout()
+            graph_images.append(fig_to_base64(fig1))
+            plt.close(fig1)
+            
+            # Graph 2: Pricing Comparison (dynamic based on actual pricing data)
+            fig2, ax2 = plt.subplots(figsize=(10, 6))
+            if our_pricing and competitor_pricing:
+                # Extract product names and create comparison
+                products = [p.get('product_line', f'Product {i}') for i, p in enumerate(our_pricing)]
+                our_prices = [p.get('price_range', '0') for p in our_pricing]
+                comp_prices = [p.get('price_range', '0') for p in competitor_pricing[:len(our_pricing)]]
+                
+                x = range(len(products))
+                width = 0.35
+                
+                ax2.bar([i - width/2 for i in x], our_prices, width, label='Our Pricing', color='#A23B72')
+                ax2.bar([i + width/2 for i in x], comp_prices, width, label='Competitor Pricing', color='#2E86AB')
+                
+                ax2.set_title('Pricing Comparison', fontsize=16, fontweight='bold')
+                ax2.set_ylabel('Price Range', fontsize=12)
+                ax2.set_xlabel('Products', fontsize=12)
+                ax2.set_xticks(x)
+                ax2.set_xticklabels(products, rotation=45)
+                ax2.legend()
+                ax2.grid(axis='y', alpha=0.3)
+            else:
+                # Fallback if no pricing data
+                ax2.text(0.5, 0.5, 'Pricing data not available', ha='center', va='center', transform=ax2.transAxes)
+                ax2.set_title('Pricing Comparison', fontsize=16, fontweight='bold')
+            plt.tight_layout()
+            graph_images.append(fig_to_base64(fig2))
+            plt.close(fig2)
+            
+            # Graph 3: Recommendations Distribution (dynamic based on actual recommendations)
+            fig3, ax3 = plt.subplots(figsize=(10, 6))
+            if immediate_recs and long_term_recs:
+                categories = ['Immediate Actions', 'Long-term Initiatives']
+                counts = [len(immediate_recs), len(long_term_recs)]
+                colors = ['#28a745', '#17a2b8']
+                bars = ax3.bar(categories, counts, color=colors)
+                ax3.set_title('Strategic Recommendations Distribution', fontsize=16, fontweight='bold')
+                ax3.set_ylabel('Number of Recommendations', fontsize=12)
+                for bar, count in zip(bars, counts):
+                    ax3.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1, 
+                            str(count), ha='center', va='bottom', fontweight='bold')
+                ax3.grid(axis='y', alpha=0.3)
+            else:
+                # Fallback if no recommendations data
+                ax3.text(0.5, 0.5, 'Recommendations data not available', ha='center', va='center', transform=ax3.transAxes)
+                ax3.set_title('Strategic Recommendations', fontsize=16, fontweight='bold')
+            plt.tight_layout()
+            graph_images.append(fig_to_base64(fig3))
+            plt.close(fig3)
+
+            pdf_tool = PDFReportTool()
+            
+            # Debug: Check the type and content of analysis_text
+            print(f"🔍 Debug: analysis_text type: {type(analysis_text)}")
+            print(f"🔍 Debug: analysis_text length: {len(analysis_text) if isinstance(analysis_text, str) else 'N/A'}")
+            print(f"🔍 Debug: analysis_text preview: {analysis_text[:200] if isinstance(analysis_text, str) else str(analysis_text)[:200]}")
+            
+            # Ensure analysis_text is a string
+            if not isinstance(analysis_text, str):
+                analysis_text = str(analysis_text)
+            
+            pdf_result = pdf_tool._run(
+                analysis_text=analysis_text,
+                graph_images=graph_images,
+                pdf_filename="market_comparison_report.pdf",
+                store_in_mongo=True,
+                mongo_collection="Market_Report"
+            )
+            print(pdf_result)
+        except Exception as e:
+            print(f"❌ Error generating PDF report: {e}")
 
     except Exception as e:
         raise Exception(f"❌ An error occurred while running the crew: {e}")
@@ -412,6 +712,14 @@ def test_crew_compilation():
         import traceback
         traceback.print_exc()
         return None
+
+def fig_to_base64(fig):
+    buf = io.BytesIO()
+    fig.savefig(buf, format='png', bbox_inches='tight')
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode()
+    plt.close(fig)
+    return img_b64
 
 if __name__ == "__main__":
     # Uncomment to test crew compilation

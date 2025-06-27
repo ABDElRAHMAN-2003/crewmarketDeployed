@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+.DS_Store
+db/
+*.bin
+*.sqlite3
+*.json
+*.md
+tests/
+*.lock
+*.embeddings.csv
+*.zip
+*.pdf
+*.csv
+knowledge/ 

@@ -1,15 +1,28 @@
-# Option A: Use relative imports in api.py
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
-from ..src.marketcompare.main import run
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+from marketcompare.main import run
 import uvicorn
 
-app = FastAPI()
+app = FastAPI(title="Market Comparison API", version="1.0.0")
+
+@app.get("/")
+def root():
+    return {"message": "Market Comparison API is running"}
 
 @app.get("/run/market")
 def run_market_crew():
-    report = run()
-    return JSONResponse(content=report.model_dump())
+    try:
+        report = run()
+        return JSONResponse(content=report)
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=500)
 
-# if __name__ == "__main__":
-#     uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
+if __name__ == "__main__":
+    uvicorn.run("index:app", host="0.0.0.0", port=8003, reload=True)

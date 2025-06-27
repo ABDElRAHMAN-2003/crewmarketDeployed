@@ -89,7 +89,7 @@ class CompetitorDetail(BaseModel):
 
 class CompetitorAnalysisOutput(BaseModel):
     """Output model for the competitor analysis task."""
-    competitors: Dict[str, CompetitorDetail] = Field(..., description="Detailed information about each competitor")
+    competitors: Dict[str, CompetitorDetail] = Field(default_factory=dict, description="Detailed information about each competitor")
 
     def json_str(self, **kwargs):
         """Return a formatted JSON string representation of the model."""

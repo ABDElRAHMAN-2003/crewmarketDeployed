@@ -164,7 +164,50 @@ competitor_analysis_task:
 
         5. Organize the findings by competitor, with structured data for pricing, discount strategies, and metrics for competitive positioning.
 
-        6. If specific information cannot be found for a competitor after reasonable attempts, mark it as "DATA_NOT_FOUND" and note the sources you attempted to check.
+        6. If specific information cannot be found for a competitor after reasonable attempts, create a placeholder entry with "DATA_NOT_FOUND" and note the sources you attempted to check.
+
+        7. IMPORTANT: If no competitor data can be found at all, return a structure with at least one placeholder competitor to maintain the required format:
+
+        competitors: {
+          "General Market Competitors": {
+            "pricing": [
+              {
+                "content": "DATA_NOT_FOUND - Unable to retrieve specific pricing information",
+                "source": "Web search attempts - No specific pricing data available"
+              }
+            ],
+            "discount_strategies": [
+              {
+                "content": "DATA_NOT_FOUND - Unable to retrieve specific discount strategies", 
+                "source": "Web search attempts - No specific discount data available"
+              }
+            ],
+            "product_features": [
+              {
+                "content": "DATA_NOT_FOUND - Unable to retrieve specific product features",
+                "source": "Web search attempts - No specific feature data available"
+              }
+            ],
+            "customer_satisfaction": [
+              {
+                "content": "DATA_NOT_FOUND - Unable to retrieve specific customer satisfaction metrics",
+                "source": "Web search attempts - No specific satisfaction data available"
+              }
+            ],
+            "innovation_indicators": [
+              {
+                "content": "DATA_NOT_FOUND - Unable to retrieve specific innovation indicators",
+                "source": "Web search attempts - No specific innovation data available"
+              }
+            ],
+            "additional_information": [
+              {
+                "content": "Market research indicates general competition exists but specific details require direct competitor analysis",
+                "source": "General market knowledge and web search attempts"
+              }
+            ]
+          }
+        }
 
         Note: All company information is provided directly in the variables listed above - no file system access or tools are needed to read this data.
         
@@ -216,7 +259,7 @@ competitor_analysis_task:
         
         DO NOT use a list format. Use a dictionary where each key is the competitor name and the value is the competitor details object.
 
-  expected_output: "A detailed competitor analysis report organized as a dictionary by competitor name, containing comprehensive information about each competitor's pricing strategies, discount offers, product features, customer satisfaction metrics, and innovation indicators. Each piece of information should include proper source attribution with website URLs and specific sections referenced. The structure must be a dictionary with competitor names as keys, not a list, following the CompetitorAnalysisOutput model exactly."
+  expected_output: "A detailed competitor analysis report organized as a dictionary by competitor name, containing comprehensive information about each competitor's pricing strategies, discount offers, product features, customer satisfaction metrics, and innovation indicators. Each piece of information should include proper source attribution with website URLs and specific sections referenced. The structure must be a dictionary with competitor names as keys, not a list, following the CompetitorAnalysisOutput model exactly. If no specific competitor data is found, include placeholder entries with 'DATA_NOT_FOUND' to maintain the required structure."
   agent: competitor_agent
   async_execution: false
 
@@ -430,86 +473,4 @@ final_report_task:
   async_execution: false
   context: [data_synthesis_task, recommendation_task]
 
-markdown_report_task:
-  description: >
-    Create a professional PDF-ready HTML report from the JSON market comparison data
-    Your task is to create a comprehensive, professional HTML report that can be converted to PDF. Follow these steps:
-
-        1. Review the complete JSON market comparison report data provided by the Final Report Task, including:
-           - SWOT Analysis
-           - Pricing Comparison
-           - Competitive Positioning
-           - Market Analysis
-           - Recommendations (Immediate Actions, Strategic Initiatives, and Urgent Alerts)
-
-        2. Also review the user preferences in the {user_preference} variable to understand the specific focus areas and priorities.
-
-        3. Create a professional HTML document with the following structure and styling:
-
-           a. Document Header:
-              - Professional title page with company logo placeholder
-              - Report title: "Market Comparison Analysis Report"
-              - Target company name
-              - Date of analysis
-              - Executive summary in a highlighted box
-
-           b. Table of Contents:
-              - Clickable navigation links to each section
-              - Page numbers (for PDF conversion)
-
-           c. Executive Summary (1 page):
-              - Key findings in bullet points
-              - Critical recommendations highlighted
-              - Market position summary
-
-           d. Market Analysis Section:
-              - Market trends in a professional table
-              - Market share data with visual chart suggestions
-              - Growth projections with source citations
-
-           e. Competitive Landscape Section:
-              - Competitor comparison table
-              - Pricing analysis with charts
-              - Competitive positioning matrix
-              - SWOT analysis in a 2x2 grid format
-
-           f. Strategic Recommendations Section:
-              - Immediate actions with priority levels
-              - Strategic initiatives with timelines
-              - Urgent alerts in warning boxes
-              - Implementation roadmap
-
-           g. Appendix:
-              - Detailed data tables
-              - Source references
-              - Methodology notes
-
-        4. Apply professional CSS styling:
-           - Use a clean, business-appropriate color scheme (blues, grays, whites)
-           - Professional fonts (Arial, Helvetica, or similar)
-           - Proper spacing and margins for PDF conversion
-           - Tables with alternating row colors
-           - Charts and graphs placeholders with descriptions
-           - Page breaks for PDF sections
-           - Header and footer for each page
-
-        5. Include interactive elements for HTML viewing:
-           - Collapsible sections
-           - Hover effects on tables
-           - Print-friendly CSS media queries
-
-        6. Ensure the report is comprehensive and professional:
-           - Use clear, executive-level language
-           - Include visual elements (charts, graphs, icons)
-           - Maintain consistent formatting throughout
-           - Add page numbers and section headers
-           - Include a professional disclaimer/methodology section
-
-        Note: The JSON report data is provided by the previous task, and user preferences are provided directly in the {user_preference} variable.
-        
-        The output should be a complete HTML document with embedded CSS that can be easily converted to PDF using tools like wkhtmltopdf or similar.
-
-  expected_output: "A professionally formatted HTML document with embedded CSS styling that presents the market comparison analysis in a business-ready format. The document should include a title page, table of contents, executive summary, detailed analysis sections, strategic recommendations, and appendix. The styling should be print-friendly and suitable for PDF conversion, with professional color schemes, proper typography, tables, charts placeholders, and consistent formatting throughout."
-  agent: markdown_report_agent
-  async_execution: false
-  context: [final_report_task]
+#
